@@ -8,6 +8,7 @@ import java.net.UnknownHostException;
 import java.util.Calendar;
 import java.util.Locale;
 
+import android.bluetooth.BluetoothAdapter;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -20,6 +21,7 @@ import android.content.DialogInterface;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,6 +37,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 import android.app.AlertDialog.Builder;
 import de.lorenz_fenster.sensorstreamgps.R;
@@ -108,6 +111,8 @@ public class PreferencesActivity extends Activity implements  OnItemSelectedList
     private double mPreTime = 0;
     private static final double mMaxSecDiff = 0.5; // max time diff between gyro and acc.
     private static final double NS2S = 1.0f / 1000000000.0f; // nanosec to sec
+
+	private String mDeviceName;
 
     private int mCounter = 0;
     private int mScreenDelay = 15;
@@ -557,8 +562,19 @@ public class PreferencesActivity extends Activity implements  OnItemSelectedList
         
         mProgessBar					= (ProgressBar)		findViewById(R.id.ProgressBar);
         mSendingState				= (TextView)		findViewById(R.id.Sending_State);
-        
-       
+
+
+
+		BluetoothAdapter myDevice = BluetoothAdapter.getDefaultAdapter();
+		mDeviceName = myDevice.getName();
+		Log.i("deviceName", mDeviceName);
+		Toast.makeText(getApplicationContext(),"Device Name \n"+mDeviceName,Toast.LENGTH_SHORT).show();
+
+		TextView msg = findViewById(R.id.Info_Devicename);
+		msg.setText("Devicename: "+mDeviceName);
+
+
+
         mSpinner = (Spinner) findViewById(R.id.spinner1);
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
@@ -828,8 +844,10 @@ public class PreferencesActivity extends Activity implements  OnItemSelectedList
         	return false;
         }
 
+		new UDPThread("0,name,"+ mDeviceName ).send();
+		new UDPThread("0,time,"+ (String.valueOf(System.currentTimeMillis())) ).send();
         return true;
-        
+
         
 	}
 	
@@ -1070,7 +1088,7 @@ public class PreferencesActivity extends Activity implements  OnItemSelectedList
 			
 
 			mSD_Card_Dialog_EditText = (EditText) layout.findViewById(R.id.EditText_Sd_Card_Dialog);
-			mSD_Card_Filename = "mystream";
+			mSD_Card_Filename = "log_"+mDeviceName+"_";
 			Calendar cal = Calendar.getInstance(); 
 			mSD_Card_Dialog_EditText.setText(mSD_Card_Filename + "_" + String.valueOf(1+cal.get(Calendar.MONTH)) + "_" + cal.get(Calendar.DAY_OF_MONTH) + "_" + cal.get(Calendar.HOUR_OF_DAY) + "_" + cal.get(Calendar.MINUTE)+ "_" + cal.get(Calendar.SECOND));
 			

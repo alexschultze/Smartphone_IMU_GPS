@@ -1,97 +1,102 @@
 package de.lorenz_fenster.sensorstreamgps;
 
+import android.Manifest;
+import android.bluetooth.BluetoothAdapter;
+import android.content.pm.PackageManager;
 import android.location.LocationManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.TabActivity;
 import android.content.Intent;
 import android.hardware.SensorManager;
+import android.provider.Settings;
+import android.util.Log;
 import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+
 import de.lorenz_fenster.sensorstreamgps.R;
 
 
+public class SensorStreamActivity extends TabActivity {
 
-public class SensorStreamActivity extends TabActivity 
-	{
-	
-		//private final String MDEBUG_TAG = "follow_onX";
-		
-		public static SensorManager mSensor_Toggle;
-		public static SensorManager mSensor_Stream;
-		
-		public static LocationManager mLocationmanager;
-		
-		
-		
-		private static int mDelay = SensorManager.SENSOR_DELAY_NORMAL;
-		private static boolean mIssending = false;
-		private static String mName_SD_Card_File = "mystream";
-		
-		
+	//private final String MDEBUG_TAG = "follow_onX";
 
-		
-		private static final boolean mbAccelerometer = true;
-		private static final boolean mbGyroscope = true;
-		private static final boolean mbMagnetometer = true;
-		
-		private static boolean mGPS = false;
-		private static boolean mbOrientation = false;
-		private static boolean mbLin_Acceleration = false;
-		private static boolean mbGravity = false;
-		private static boolean mbRot_Vector = false;
-		private static boolean mbPressure = false;
-		private static boolean mbBat_Temp = false;
-		
-		private static boolean mbChecked_Sensor_Data=false;
-		
-		private static boolean mRun_in_Background = false;
-		
-		
-		TabHost mTabHost;
-		
-		
-	
-	
-    	@Override
-    	public void onCreate(Bundle savedInstanceState) 
-    	{
-    	super.onCreate(savedInstanceState);
-    	//Log.d(MDEBUG_TAG, getLocalClassName()+ " .onCreate aufgerufen");
-        setContentView(R.layout.main);
-        
-        
-        mSensor_Toggle 	= 		(SensorManager) getSystemService(SENSOR_SERVICE);
-		mSensor_Stream 	= 		(SensorManager) getSystemService(SENSOR_SERVICE);
-		mLocationmanager =		(LocationManager) getSystemService(LOCATION_SERVICE);
-        
-        
-        // Tab Action
-        TabHost mTabHost = getTabHost();
-       
-        
-        // Tab for Preferences
-        TabSpec preferencesspec = mTabHost.newTabSpec("Preferences");
-        // setting Title and Icon for the Tab
-        preferencesspec.setIndicator("Preferences", getResources().getDrawable(R.drawable.icon_preferences_tab));
-        Intent preferencesIntent = new Intent(this, PreferencesActivity.class);
-        preferencesspec.setContent(preferencesIntent);
-       
-        
-        // Tab for Toggling of Sensors
-        TabSpec sensorspec = mTabHost.newTabSpec("Toggle Sensors");
-        // setting Title and Icon for the Tab
-        sensorspec.setIndicator("Toggle Sensors", getResources().getDrawable(R.drawable.icon_toggle_sensors_tab));
-        Intent songsIntent = new Intent(this, ToggleSensorsActivity.class);
-        sensorspec.setContent(songsIntent);
-        
-        // Adding all TabSpec to TabHost
+	public static SensorManager mSensor_Toggle;
+	public static SensorManager mSensor_Stream;
 
-        mTabHost.addTab(preferencesspec); // Adding Preferences tab
-        mTabHost.addTab(sensorspec); // Adding Toogle_Sensors tab  
-        //End of Tab Action
-        
-        
-    	}
+	public static LocationManager mLocationmanager;
+
+
+	private static int mDelay = SensorManager.SENSOR_DELAY_NORMAL;
+	private static boolean mIssending = false;
+	private static String mName_SD_Card_File = "mystream";
+
+
+	private static final boolean mbAccelerometer = true;
+	private static final boolean mbGyroscope = true;
+	private static final boolean mbMagnetometer = true;
+
+	private static boolean mGPS = false;
+	private static boolean mbOrientation = false;
+	private static boolean mbLin_Acceleration = false;
+	private static boolean mbGravity = false;
+	private static boolean mbRot_Vector = false;
+	private static boolean mbPressure = false;
+	private static boolean mbBat_Temp = false;
+
+	private static boolean mbChecked_Sensor_Data = false;
+
+	private static boolean mRun_in_Background = false;
+
+
+	TabHost mTabHost;
+
+
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		//Log.d(MDEBUG_TAG, getLocalClassName()+ " .onCreate aufgerufen");
+		setContentView(R.layout.main);
+
+
+		mSensor_Toggle = (SensorManager) getSystemService(SENSOR_SERVICE);
+		mSensor_Stream = (SensorManager) getSystemService(SENSOR_SERVICE);
+		mLocationmanager = (LocationManager) getSystemService(LOCATION_SERVICE);
+
+
+		// Tab Action
+		TabHost mTabHost = getTabHost();
+
+
+		// Tab for Preferences
+		TabSpec preferencesspec = mTabHost.newTabSpec("Preferences");
+		// setting Title and Icon for the Tab
+		preferencesspec.setIndicator("Preferences", getResources().getDrawable(R.drawable.icon_preferences_tab));
+		Intent preferencesIntent = new Intent(this, PreferencesActivity.class);
+		preferencesspec.setContent(preferencesIntent);
+
+
+		// Tab for Toggling of Sensors
+		TabSpec sensorspec = mTabHost.newTabSpec("Toggle Sensors");
+		// setting Title and Icon for the Tab
+		sensorspec.setIndicator("Toggle Sensors", getResources().getDrawable(R.drawable.icon_toggle_sensors_tab));
+		Intent songsIntent = new Intent(this, ToggleSensorsActivity.class);
+		sensorspec.setContent(songsIntent);
+
+		// Adding all TabSpec to TabHost
+
+		mTabHost.addTab(preferencesspec); // Adding Preferences tab
+		mTabHost.addTab(sensorspec); // Adding Toogle_Sensors tab
+		//End of Tab Action
+
+
+
+		}
     	
     	
 		
@@ -259,7 +264,30 @@ public class SensorStreamActivity extends TabActivity
 		public static boolean ismRun_in_Background() {
 			return mRun_in_Background;
 		}
- 
+
+		public String getHostName() {
+			AsyncTask<Void, Void, String> task = new AsyncTask<Void, Void, String>() {
+				@Override
+				protected String doInBackground(Void... voids) {
+					String hostName;
+					try {
+						InetAddress netHost = InetAddress.getLocalHost();
+						hostName = netHost.getHostName();
+					} catch (UnknownHostException ex) {
+						hostName = null;
+					}
+
+					return hostName;
+				}
+			};
+
+			task.execute();
+			try {
+				return task.get();
+			} catch (Exception e) {
+				return null;
+			}
+		}
 		
 	}
 

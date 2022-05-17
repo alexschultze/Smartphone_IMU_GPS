@@ -15,9 +15,18 @@
         android:paddingTop="3dp" >
 
         <TextView
+            android:id="@+id/Info_Devicename"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Devicename: "
+            android:background="#914141"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
             android:id="@+id/Edit_IP_Adress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@id/Info_Devicename"
             android:text="@string/Edit_Target_Adress"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 

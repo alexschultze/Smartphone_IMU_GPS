@@ -1,12 +1,12 @@
 -- Merging decision tree log ---
 manifest
-ADDED from C:\Users\alexs\StudioProjects\de.lorenz_fenster.SensorStream_Import\app\src\main\AndroidManifest.xml:2:1-34:12
-INJECTED from C:\Users\alexs\StudioProjects\de.lorenz_fenster.SensorStream_Import\app\src\main\AndroidManifest.xml:2:1-34:12
-INJECTED from C:\Users\alexs\StudioProjects\de.lorenz_fenster.SensorStream_Import\app\src\main\AndroidManifest.xml:2:1-34:12
-INJECTED from C:\Users\alexs\StudioProjects\de.lorenz_fenster.SensorStream_Import\app\src\main\AndroidManifest.xml:2:1-34:12
-INJECTED from C:\Users\alexs\StudioProjects\de.lorenz_fenster.SensorStream_Import\app\src\main\AndroidManifest.xml:2:1-34:12
-INJECTED from C:\Users\alexs\StudioProjects\de.lorenz_fenster.SensorStream_Import\app\src\main\AndroidManifest.xml:2:1-34:12
-INJECTED from C:\Users\alexs\StudioProjects\de.lorenz_fenster.SensorStream_Import\app\src\main\AndroidManifest.xml:2:1-34:12
+ADDED from C:\Users\alexs\StudioProjects\de.lorenz_fenster.SensorStream_Import\app\src\main\AndroidManifest.xml:2:1-37:12
+INJECTED from C:\Users\alexs\StudioProjects\de.lorenz_fenster.SensorStream_Import\app\src\main\AndroidManifest.xml:2:1-37:12
+INJECTED from C:\Users\alexs\StudioProjects\de.lorenz_fenster.SensorStream_Import\app\src\main\AndroidManifest.xml:2:1-37:12
+INJECTED from C:\Users\alexs\StudioProjects\de.lorenz_fenster.SensorStream_Import\app\src\main\AndroidManifest.xml:2:1-37:12
+INJECTED from C:\Users\alexs\StudioProjects\de.lorenz_fenster.SensorStream_Import\app\src\main\AndroidManifest.xml:2:1-37:12
+INJECTED from C:\Users\alexs\StudioProjects\de.lorenz_fenster.SensorStream_Import\app\src\main\AndroidManifest.xml:2:1-37:12
+INJECTED from C:\Users\alexs\StudioProjects\de.lorenz_fenster.SensorStream_Import\app\src\main\AndroidManifest.xml:2:1-37:12
 	package
 		ADDED from C:\Users\alexs\StudioProjects\de.lorenz_fenster.SensorStream_Import\app\src\main\AndroidManifest.xml:3:5-48
 		INJECTED from C:\Users\alexs\StudioProjects\de.lorenz_fenster.SensorStream_Import\app\src\main\AndroidManifest.xml
@@ -35,67 +35,75 @@ INJECTED from C:\Users\alexs\StudioProjects\de.lorenz_fenster.SensorStream_Impor
 		ADDED from C:\Users\alexs\StudioProjects\de.lorenz_fenster.SensorStream_Import\app\src\main\AndroidManifest.xml:8:9-35
 		INJECTED from C:\Users\alexs\StudioProjects\de.lorenz_fenster.SensorStream_Import\app\src\main\AndroidManifest.xml
 		INJECTED from C:\Users\alexs\StudioProjects\de.lorenz_fenster.SensorStream_Import\app\src\main\AndroidManifest.xml
-uses-permission#android.permission.INTERNET
-ADDED from C:\Users\alexs\StudioProjects\de.lorenz_fenster.SensorStream_Import\app\src\main\AndroidManifest.xml:10:5-66
+uses-permission#android.permission.BLUETOOTH
+ADDED from C:\Users\alexs\StudioProjects\de.lorenz_fenster.SensorStream_Import\app\src\main\AndroidManifest.xml:11:5-68
 	android:name
-		ADDED from C:\Users\alexs\StudioProjects\de.lorenz_fenster.SensorStream_Import\app\src\main\AndroidManifest.xml:10:22-64
-uses-permission#android.permission.ACCESS_NETWORK_STATE
-ADDED from C:\Users\alexs\StudioProjects\de.lorenz_fenster.SensorStream_Import\app\src\main\AndroidManifest.xml:11:5-78
-	android:name
-		ADDED from C:\Users\alexs\StudioProjects\de.lorenz_fenster.SensorStream_Import\app\src\main\AndroidManifest.xml:11:22-76
-uses-permission#android.permission.ACCESS_WIFI_STATE
-ADDED from C:\Users\alexs\StudioProjects\de.lorenz_fenster.SensorStream_Import\app\src\main\AndroidManifest.xml:12:5-75
+		ADDED from C:\Users\alexs\StudioProjects\de.lorenz_fenster.SensorStream_Import\app\src\main\AndroidManifest.xml:11:22-65
+uses-permission#android.permission.BLUETOOTH_CONNECT
+ADDED from C:\Users\alexs\StudioProjects\de.lorenz_fenster.SensorStream_Import\app\src\main\AndroidManifest.xml:12:5-76
 	android:name
 		ADDED from C:\Users\alexs\StudioProjects\de.lorenz_fenster.SensorStream_Import\app\src\main\AndroidManifest.xml:12:22-73
+uses-permission#android.permission.INTERNET
+ADDED from C:\Users\alexs\StudioProjects\de.lorenz_fenster.SensorStream_Import\app\src\main\AndroidManifest.xml:13:5-66
+	android:name
+		ADDED from C:\Users\alexs\StudioProjects\de.lorenz_fenster.SensorStream_Import\app\src\main\AndroidManifest.xml:13:22-64
+uses-permission#android.permission.ACCESS_NETWORK_STATE
+ADDED from C:\Users\alexs\StudioProjects\de.lorenz_fenster.SensorStream_Import\app\src\main\AndroidManifest.xml:14:5-78
+	android:name
+		ADDED from C:\Users\alexs\StudioProjects\de.lorenz_fenster.SensorStream_Import\app\src\main\AndroidManifest.xml:14:22-76
+uses-permission#android.permission.ACCESS_WIFI_STATE
+ADDED from C:\Users\alexs\StudioProjects\de.lorenz_fenster.SensorStream_Import\app\src\main\AndroidManifest.xml:15:5-75
+	android:name
+		ADDED from C:\Users\alexs\StudioProjects\de.lorenz_fenster.SensorStream_Import\app\src\main\AndroidManifest.xml:15:22-73
 uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
-ADDED from C:\Users\alexs\StudioProjects\de.lorenz_fenster.SensorStream_Import\app\src\main\AndroidManifest.xml:13:5-80
+ADDED from C:\Users\alexs\StudioProjects\de.lorenz_fenster.SensorStream_Import\app\src\main\AndroidManifest.xml:16:5-80
 	android:name
-		ADDED from C:\Users\alexs\StudioProjects\de.lorenz_fenster.SensorStream_Import\app\src\main\AndroidManifest.xml:13:22-78
+		ADDED from C:\Users\alexs\StudioProjects\de.lorenz_fenster.SensorStream_Import\app\src\main\AndroidManifest.xml:16:22-78
 uses-permission#android.permission.ACCESS_COARSE_LOCATION
-ADDED from C:\Users\alexs\StudioProjects\de.lorenz_fenster.SensorStream_Import\app\src\main\AndroidManifest.xml:14:5-80
+ADDED from C:\Users\alexs\StudioProjects\de.lorenz_fenster.SensorStream_Import\app\src\main\AndroidManifest.xml:17:5-80
 	android:name
-		ADDED from C:\Users\alexs\StudioProjects\de.lorenz_fenster.SensorStream_Import\app\src\main\AndroidManifest.xml:14:22-78
+		ADDED from C:\Users\alexs\StudioProjects\de.lorenz_fenster.SensorStream_Import\app\src\main\AndroidManifest.xml:17:22-78
 uses-permission#android.permission.ACCESS_FINE_LOCATION
-ADDED from C:\Users\alexs\StudioProjects\de.lorenz_fenster.SensorStream_Import\app\src\main\AndroidManifest.xml:15:5-78
+ADDED from C:\Users\alexs\StudioProjects\de.lorenz_fenster.SensorStream_Import\app\src\main\AndroidManifest.xml:18:5-78
 	android:name
-		ADDED from C:\Users\alexs\StudioProjects\de.lorenz_fenster.SensorStream_Import\app\src\main\AndroidManifest.xml:15:22-76
+		ADDED from C:\Users\alexs\StudioProjects\de.lorenz_fenster.SensorStream_Import\app\src\main\AndroidManifest.xml:18:22-76
 application
-ADDED from C:\Users\alexs\StudioProjects\de.lorenz_fenster.SensorStream_Import\app\src\main\AndroidManifest.xml:17:5-32:19
+ADDED from C:\Users\alexs\StudioProjects\de.lorenz_fenster.SensorStream_Import\app\src\main\AndroidManifest.xml:20:5-35:19
 	android:label
-		ADDED from C:\Users\alexs\StudioProjects\de.lorenz_fenster.SensorStream_Import\app\src\main\AndroidManifest.xml:17:56-88
+		ADDED from C:\Users\alexs\StudioProjects\de.lorenz_fenster.SensorStream_Import\app\src\main\AndroidManifest.xml:20:56-88
 	android:icon
-		ADDED from C:\Users\alexs\StudioProjects\de.lorenz_fenster.SensorStream_Import\app\src\main\AndroidManifest.xml:17:19-55
+		ADDED from C:\Users\alexs\StudioProjects\de.lorenz_fenster.SensorStream_Import\app\src\main\AndroidManifest.xml:20:19-55
 	android:theme
-		ADDED from C:\Users\alexs\StudioProjects\de.lorenz_fenster.SensorStream_Import\app\src\main\AndroidManifest.xml:18:12-65
+		ADDED from C:\Users\alexs\StudioProjects\de.lorenz_fenster.SensorStream_Import\app\src\main\AndroidManifest.xml:21:12-65
 activity#de.lorenz_fenster.sensorstreamgps.PreferencesActivity
-ADDED from C:\Users\alexs\StudioProjects\de.lorenz_fenster.SensorStream_Import\app\src\main\AndroidManifest.xml:20:6-100
+ADDED from C:\Users\alexs\StudioProjects\de.lorenz_fenster.SensorStream_Import\app\src\main\AndroidManifest.xml:23:6-100
 	android:screenOrientation
-		ADDED from C:\Users\alexs\StudioProjects\de.lorenz_fenster.SensorStream_Import\app\src\main\AndroidManifest.xml:20:52-88
+		ADDED from C:\Users\alexs\StudioProjects\de.lorenz_fenster.SensorStream_Import\app\src\main\AndroidManifest.xml:23:52-88
 	android:name
-		ADDED from C:\Users\alexs\StudioProjects\de.lorenz_fenster.SensorStream_Import\app\src\main\AndroidManifest.xml:20:16-51
+		ADDED from C:\Users\alexs\StudioProjects\de.lorenz_fenster.SensorStream_Import\app\src\main\AndroidManifest.xml:23:16-51
 activity#de.lorenz_fenster.sensorstreamgps.ToggleSensorsActivity
-ADDED from C:\Users\alexs\StudioProjects\de.lorenz_fenster.SensorStream_Import\app\src\main\AndroidManifest.xml:21:9-105
+ADDED from C:\Users\alexs\StudioProjects\de.lorenz_fenster.SensorStream_Import\app\src\main\AndroidManifest.xml:24:9-105
 	android:screenOrientation
-		ADDED from C:\Users\alexs\StudioProjects\de.lorenz_fenster.SensorStream_Import\app\src\main\AndroidManifest.xml:21:57-93
+		ADDED from C:\Users\alexs\StudioProjects\de.lorenz_fenster.SensorStream_Import\app\src\main\AndroidManifest.xml:24:57-93
 	android:name
-		ADDED from C:\Users\alexs\StudioProjects\de.lorenz_fenster.SensorStream_Import\app\src\main\AndroidManifest.xml:21:19-56
+		ADDED from C:\Users\alexs\StudioProjects\de.lorenz_fenster.SensorStream_Import\app\src\main\AndroidManifest.xml:24:19-56
 activity#de.lorenz_fenster.sensorstreamgps.SensorStreamActivity
-ADDED from C:\Users\alexs\StudioProjects\de.lorenz_fenster.SensorStream_Import\app\src\main\AndroidManifest.xml:22:9-30:20
+ADDED from C:\Users\alexs\StudioProjects\de.lorenz_fenster.SensorStream_Import\app\src\main\AndroidManifest.xml:25:9-33:20
 	android:screenOrientation
-		ADDED from C:\Users\alexs\StudioProjects\de.lorenz_fenster.SensorStream_Import\app\src\main\AndroidManifest.xml:25:48-84
+		ADDED from C:\Users\alexs\StudioProjects\de.lorenz_fenster.SensorStream_Import\app\src\main\AndroidManifest.xml:28:48-84
 	android:label
-		ADDED from C:\Users\alexs\StudioProjects\de.lorenz_fenster.SensorStream_Import\app\src\main\AndroidManifest.xml:25:15-47
+		ADDED from C:\Users\alexs\StudioProjects\de.lorenz_fenster.SensorStream_Import\app\src\main\AndroidManifest.xml:28:15-47
 	android:exported
-		ADDED from C:\Users\alexs\StudioProjects\de.lorenz_fenster.SensorStream_Import\app\src\main\AndroidManifest.xml:23:21-44
+		ADDED from C:\Users\alexs\StudioProjects\de.lorenz_fenster.SensorStream_Import\app\src\main\AndroidManifest.xml:26:21-44
 	android:name
-		ADDED from C:\Users\alexs\StudioProjects\de.lorenz_fenster.SensorStream_Import\app\src\main\AndroidManifest.xml:24:15-51
+		ADDED from C:\Users\alexs\StudioProjects\de.lorenz_fenster.SensorStream_Import\app\src\main\AndroidManifest.xml:27:15-51
 intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
-ADDED from C:\Users\alexs\StudioProjects\de.lorenz_fenster.SensorStream_Import\app\src\main\AndroidManifest.xml:26:14-29:30
+ADDED from C:\Users\alexs\StudioProjects\de.lorenz_fenster.SensorStream_Import\app\src\main\AndroidManifest.xml:29:14-32:30
 action#android.intent.action.MAIN
-ADDED from C:\Users\alexs\StudioProjects\de.lorenz_fenster.SensorStream_Import\app\src\main\AndroidManifest.xml:27:18-77
+ADDED from C:\Users\alexs\StudioProjects\de.lorenz_fenster.SensorStream_Import\app\src\main\AndroidManifest.xml:30:18-77
 	android:name
-		ADDED from C:\Users\alexs\StudioProjects\de.lorenz_fenster.SensorStream_Import\app\src\main\AndroidManifest.xml:27:26-67
+		ADDED from C:\Users\alexs\StudioProjects\de.lorenz_fenster.SensorStream_Import\app\src\main\AndroidManifest.xml:30:26-67
 category#android.intent.category.LAUNCHER
-ADDED from C:\Users\alexs\StudioProjects\de.lorenz_fenster.SensorStream_Import\app\src\main\AndroidManifest.xml:28:18-87
+ADDED from C:\Users\alexs\StudioProjects\de.lorenz_fenster.SensorStream_Import\app\src\main\AndroidManifest.xml:31:18-87
 	android:name
-		ADDED from C:\Users\alexs\StudioProjects\de.lorenz_fenster.SensorStream_Import\app\src\main\AndroidManifest.xml:28:28-75
+		ADDED from C:\Users\alexs\StudioProjects\de.lorenz_fenster.SensorStream_Import\app\src\main\AndroidManifest.xml:31:28-75
