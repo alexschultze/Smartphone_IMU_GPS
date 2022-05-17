@@ -11,10 +11,11 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 
     <application 	android:icon="@drawable/ic_launcher" android:label="@string/app_name" 
-        			android:theme="@android:style/Theme.Black.NoTitleBar" android:debuggable="false">
+        			android:theme="@android:style/Theme.Black.NoTitleBar">
     
     	<activity android:name=".PreferencesActivity" android:screenOrientation="portrait"></activity>
         <activity android:name=".ToggleSensorsActivity" android:screenOrientation="portrait"></activity>
