@@ -821,7 +821,6 @@ public class PreferencesActivity extends Activity implements  OnItemSelectedList
 	
 	public  void stop_Software_Sensors ()
 	{
-		
 		SensorStreamActivity.mSensor_Stream.unregisterListener(mysoftwarewaresensorlistener);
 		
 		mOriBufferReady			= false;
@@ -1115,9 +1114,9 @@ public class PreferencesActivity extends Activity implements  OnItemSelectedList
 			
 
 			mSD_Card_Dialog_EditText = (EditText) layout.findViewById(R.id.EditText_Sd_Card_Dialog);
-			mSD_Card_Filename = "log_"+mDeviceName+"_";
+			mSD_Card_Filename = "log_"+mDeviceName;
 			Calendar cal = Calendar.getInstance(); 
-			mSD_Card_Dialog_EditText.setText(mSD_Card_Filename + "_" + String.valueOf(1+cal.get(Calendar.MONTH)) + "_" + cal.get(Calendar.DAY_OF_MONTH) + "_" + cal.get(Calendar.HOUR_OF_DAY) + "_" + cal.get(Calendar.MINUTE)+ "_" + cal.get(Calendar.SECOND));
+			mSD_Card_Dialog_EditText.setText(mSD_Card_Filename + "_" + String.valueOf(1+cal.get(Calendar.YEAR))+ "_" + String.valueOf(1+cal.get(Calendar.MONTH)) + "_" + cal.get(Calendar.DAY_OF_MONTH) + "_" + cal.get(Calendar.HOUR_OF_DAY) + "_" + cal.get(Calendar.MINUTE)+ "_" + cal.get(Calendar.SECOND));
 			
 			builder = new AlertDialog.Builder(this);
 			builder.setView(layout);
