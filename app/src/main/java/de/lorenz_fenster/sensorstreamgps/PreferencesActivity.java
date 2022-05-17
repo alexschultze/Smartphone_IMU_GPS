@@ -9,6 +9,8 @@ import java.util.Calendar;
 import java.util.Locale;
 
 import android.bluetooth.BluetoothAdapter;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -573,9 +575,23 @@ public class PreferencesActivity extends Activity implements  OnItemSelectedList
 		TextView msg = findViewById(R.id.Info_Devicename);
 		msg.setText("Devicename: "+mDeviceName);
 
+		// Default values
+
+		// Retrieving the value using its keys the file name
+		// must be same in both saving and retrieving the data
+		SharedPreferences sh = getSharedPreferences("SharedPref", MODE_PRIVATE);
+
+		String ip = sh.getString("ip", "192.168.1.1");
+		int port = sh.getInt("port", 5555);
+
+		// fill in...
+		mIP_Adress .setText(ip);
+		mPort.setText(String.valueOf(port));
 
 
-        mSpinner = (Spinner) findViewById(R.id.spinner1);
+
+
+		mSpinner = (Spinner) findViewById(R.id.spinner1);
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
         R.array.spinner_array, android.R.layout.simple_spinner_item);
@@ -650,6 +666,17 @@ public class PreferencesActivity extends Activity implements  OnItemSelectedList
 	 */
 	@Override
 	protected void onPause() {
+
+		SharedPreferences sh = getSharedPreferences("SharedPref", MODE_PRIVATE);
+		// Creating an Editor object to edit(write to the file)
+		SharedPreferences.Editor myEdit = sh.edit();
+
+		// Storing the key and its value as the data fetched from edittext
+		myEdit.putString("ip", mIP_Adress.getText().toString());
+		myEdit.putInt("port", Integer.parseInt(mPort.getText().toString()));
+		myEdit.commit();
+
+
 		super.onPause();
 		
 		//Log.d(MDEBUG_TAG, getLocalClassName()+ " .onPause aufgerufen");
