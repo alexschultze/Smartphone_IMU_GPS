@@ -11,6 +11,7 @@ https://play.google.com/store/apps/details?id=de.lorenz_fenster.sensorstreamgps
 Original source (CCAL license):
 https://sourceforge.net/projects/smartphone-imu/
 
+![ui](https://play-lh.googleusercontent.com/e7EOB1Q_4Siayd7B361WXzi8hK47iaBADHdDh5Vn5XN9KkBtj_kN3MElnfnmMQkb7fc=w1440-h620-rw)
 
 License
 --------------
