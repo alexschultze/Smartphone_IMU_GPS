@@ -131,18 +131,15 @@
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
 
-
-
-
-
         <CheckBox
             android:id="@+id/CheckBox_Run_Background"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/RadioGroup"
             android:layout_alignLeft="@+id/RadioGroup"
             android:layout_alignRight="@+id/RadioGroup"
-            android:layout_below="@+id/RadioGroup"
             android:layout_marginTop="10dp"
+            android:checked="true"
             android:text="@string/Run_in_Background" />
 
 
