@@ -1,0 +1,5 @@
+/.gradle
+/.idea
+/app/build/tmp
+/app/build/generated
+/app/build/intermediates

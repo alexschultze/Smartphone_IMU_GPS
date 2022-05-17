@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="de.lorenz_fenster.sensorstreamgps"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="10"
+        android:targetSdkVersion="32" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+
+    <application 	android:icon="@drawable/ic_launcher" android:label="@string/app_name" 
+        			android:theme="@android:style/Theme.Black.NoTitleBar" android:debuggable="false">
+    
+    	<activity android:name=".PreferencesActivity" android:screenOrientation="portrait"></activity>
+        <activity android:name=".ToggleSensorsActivity" android:screenOrientation="portrait"></activity>
+        <activity
+                    android:exported="true"
+            		android:name=".SensorStreamActivity"
+            		android:label="@string/app_name" android:screenOrientation="portrait">
+            	<intent-filter>
+                	<action android:name="android.intent.action.MAIN"></action>
+                	<category android:name="android.intent.category.LAUNCHER"></category>
+            	</intent-filter>
+        </activity>
+        
+    </application>
+
+</manifest>

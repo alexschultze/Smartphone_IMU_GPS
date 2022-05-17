@@ -1,0 +1,599 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+
+    <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="false"
+        android:paddingLeft="8dp" >
+
+        <TableRow
+            android:id="@+id/tableRow1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" >
+
+
+            <TextView
+                android:id="@+id/text_sensors"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/Sensors"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+
+            <TextView
+                android:id="@+id/X"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:text="@string/X"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/green" />
+
+
+            <TextView
+                android:id="@+id/Y"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:text="@string/Y"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/red" />
+
+
+            <TextView
+                android:id="@+id/Z"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:text="@string/Z"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/blue" />
+
+        </TableRow>
+
+
+        <TableRow
+            android:id="@+id/tableRow2"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="2dp"
+            android:layout_weight="1" >
+
+            <CheckBox
+                android:id="@+id/CheckBox_Acc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:clickable="false"
+                android:paddingRight="12dp"
+                android:text="@string/Accelerometer"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+
+
+            <TextView
+                android:id="@+id/X_Acc"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:text="@string/Zero_Value"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/green" />
+
+
+            <TextView
+                android:id="@+id/Y_Acc"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:text="@string/Zero_Value"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/red" />
+
+
+
+
+
+            <TextView
+                android:id="@+id/Z_Acc"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:text="@string/Zero_Value"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/blue" />
+
+        </TableRow>
+
+
+
+        <TableRow
+            android:id="@+id/TableRow3"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" >
+
+
+            <CheckBox
+                android:id="@+id/CheckBox_Gyr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:clickable="false"
+                android:gravity="left|center_vertical"
+                android:paddingRight="12dp"
+                android:text="@string/Gyroscope"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+
+            <TextView
+                android:id="@+id/X_Gyr"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:text="@string/Zero_Value"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/green" />
+
+
+            <TextView
+                android:id="@+id/Y_Gyr"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:text="@string/Zero_Value"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/red" />
+
+
+            <TextView
+                android:id="@+id/Z_Gyr"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:text="@string/Zero_Value"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/blue" />
+
+        </TableRow>
+
+
+
+        <TableRow
+            android:id="@+id/TableRow4"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" >
+
+
+            <CheckBox
+                android:id="@+id/CheckBox_Mag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:clickable="false"
+                android:paddingRight="12dp"
+                android:text="@string/Magnetic_Field"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <TextView
+                android:id="@+id/X_Mag"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:text="@string/Zero_Value"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/green" />
+
+
+            <TextView
+                android:id="@+id/Y_Mag"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:text="@string/Zero_Value"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/red" />
+
+
+            <TextView
+                android:id="@+id/Z_Mag"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:text="@string/Zero_Value"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/blue" />
+
+        </TableRow>
+
+
+
+        <TableRow
+            android:id="@+id/TableRow5"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" >
+
+
+
+
+
+            <CheckBox
+                android:id="@+id/CheckBox_GPS"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="false"
+                android:paddingRight="12dp"
+                android:text="@string/GPS_Position"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+
+
+
+            <TextView
+                android:id="@+id/Lat_GPS"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:text="@string/Pending"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/green"
+                android:visibility="invisible" />
+
+
+
+            <TextView
+                android:id="@+id/Long_GPS"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:text="@string/Pending"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/red"
+                android:visibility="invisible" />
+
+
+
+
+            <TextView
+                android:id="@+id/Alt_GPS"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:text="@string/Pending"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/blue"
+                android:visibility="invisible" />
+
+        </TableRow>
+
+
+
+
+        <TableRow
+            android:id="@+id/TableRow6"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="2dp"
+            android:layout_weight="1" >
+
+            <CheckBox
+                android:id="@+id/CheckBox_Ori"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="false"
+                android:paddingRight="12dp"
+                android:text="@string/Orientation"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+
+            <TextView
+                android:id="@+id/X_Ori"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:text="@string/Zero_Value"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/green"
+                android:visibility="invisible" />
+
+
+
+            <TextView
+                android:id="@+id/Y_Ori"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:text="@string/Zero_Value"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/red"
+                android:visibility="invisible" />
+
+
+            <TextView
+                android:id="@+id/Z_Ori"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:text="@string/Zero_Value"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/blue"
+                android:visibility="invisible" />
+
+        </TableRow>
+
+
+        <TableRow
+            android:id="@+id/TableRow7"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" >
+
+
+            <CheckBox
+                android:id="@+id/CheckBox_Lin_Acc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="false"
+                android:paddingRight="2dp"
+                android:text="@string/Linear_Acceleration"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+
+            <TextView
+                android:id="@+id/X_Lin_Acc"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:text="@string/Zero_Value"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/green"
+                android:visibility="invisible" />
+
+
+            <TextView
+                android:id="@+id/Y_Lin_Acc"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:text="@string/Zero_Value"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/red"
+                android:visibility="invisible" />
+
+
+            <TextView
+                android:id="@+id/Z_Lin_Acc"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:text="@string/Zero_Value"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/blue"
+                android:visibility="invisible" />
+
+        </TableRow>
+
+
+        <TableRow
+            android:id="@+id/TableRow8"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" >
+
+            <CheckBox
+                android:id="@+id/CheckBox_Gra"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="false"
+                android:paddingRight="5dp"
+                android:text="@string/Gravity"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+
+
+
+            <TextView
+                android:id="@+id/X_Gra"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:text="@string/Zero_Value"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/green"
+                android:visibility="invisible" />
+
+
+
+            <TextView
+                android:id="@+id/Y_Gra"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:text="@string/Zero_Value"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/red"
+                android:visibility="invisible" />
+
+
+
+            <TextView
+                android:id="@+id/Z_Gra"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:text="@string/Zero_Value"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/blue"
+                android:visibility="invisible" />
+
+        </TableRow>
+
+
+        <TableRow
+            android:id="@+id/TableRow9"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" >
+
+            <CheckBox
+                android:id="@+id/CheckBox_Rot_Vec"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="false"
+                android:paddingRight="5dp"
+                android:text="@string/Rotation_Vector"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+
+            <TextView
+                android:id="@+id/X_Rot_Vec"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:text="@string/Zero_Value"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/green"
+                android:visibility="invisible" />
+
+
+            <TextView
+                android:id="@+id/Y_Rot_Vec"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:text="@string/Zero_Value"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/red"
+                android:visibility="invisible" />
+
+
+            <TextView
+                android:id="@+id/Z_Rot_Vec"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:text="@string/Zero_Value"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/blue"
+                android:visibility="invisible" />
+
+        </TableRow>
+
+
+
+
+        <TableRow
+            android:id="@+id/TableRow10"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" >
+
+            <CheckBox
+                android:id="@+id/CheckBox_Pre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="false"
+                android:paddingRight="5dp"
+                android:text="@string/Pressure"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+
+
+
+            <TextView
+                android:id="@+id/value_pressure"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:text="@string/Zero_Value"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:visibility="invisible" />
+
+        </TableRow>
+
+
+            <TableRow
+            android:id="@+id/TableRow11"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" >
+
+            <CheckBox
+                android:id="@+id/CheckBox_Bat_Temp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="false"
+                android:paddingRight="5dp"
+                android:text="@string/Bat_Temp"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+
+
+            <TextView
+                android:id="@+id/value_bat_temp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:text="@string/Zero_Value"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:visibility="invisible" />
+
+        </TableRow>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+
+            <CheckBox
+                android:id="@+id/CheckBox_Include_Checked_Sensor"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginRight="5dp"
+                android:text="@string/Button_SensorUpdate"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        </RelativeLayout>
+        
+        </TableLayout>
+
+    </ScrollView>
+        

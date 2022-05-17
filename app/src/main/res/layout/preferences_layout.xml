@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:android1="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:paddingTop="3dp" >
+
+        <TextView
+            android:id="@+id/Edit_IP_Adress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/Edit_Target_Adress"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <EditText
+            android:id="@+id/Edit_Address_Box"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@id/Edit_IP_Adress"
+            android:layout_marginBottom="2dp"
+            android:ems="10"
+            android:singleLine="true"
+            android:text="@string/Default_IP_Adress" >
+
+            <requestFocus />
+        </EditText>
+
+        <TextView
+            android:id="@+id/Edit_Port"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/Edit_Address_Box"
+            android:text="@string/Edit_Port"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <EditText
+            android:id="@+id/Edit_Port_Box"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/Edit_Port"
+            android:layout_marginBottom="2dp"
+            android:ems="10"
+            android:inputType="number"
+            android:text="@string/Default_Port" />
+
+        <TextView
+            android:id="@+id/Edit_Frequency"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/Edit_Port_Box"
+            android:text="@string/Edit_Frequency"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+
+        <Spinner
+            android:id="@+id/spinner1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/Edit_Frequency"
+            android:layout_marginBottom="10dp" />
+
+        <RadioGroup
+            android:id="@+id/RadioGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/spinner1"
+            android:layout_alignRight="@+id/Edit_IP_Adress"
+            android:layout_below="@id/spinner1" >
+
+
+            <RadioButton
+                android:id="@+id/UDP_SD_Stream"
+                android:layout_width="154dp"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="@string/UDP_SD_Stream" />
+
+
+            <RadioButton
+                android:id="@+id/UDP_Stream"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/UDP_Stream" />
+
+            <RadioButton
+                android:id="@+id/SD_Stream"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/SD_Stream" />
+        </RadioGroup>
+
+
+        <ToggleButton
+            android:id="@+id/ToggleButton_Stream"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/RadioGroup"
+            android:layout_alignLeft="@+id/Activate_WiFi_Stream" />
+
+        <TextView
+            android:id="@+id/Activate_WiFi_Stream"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/ToggleButton_Stream"
+            android:layout_toRightOf="@+id/RadioGroup"
+            android:gravity="center_horizontal"
+            android:text="@string/Wireless_Stream_Text"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+
+
+
+
+
+        <CheckBox
+            android:id="@+id/CheckBox_Run_Background"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/RadioGroup"
+            android:layout_alignRight="@+id/RadioGroup"
+            android:layout_below="@+id/RadioGroup"
+            android:layout_marginTop="10dp"
+            android:text="@string/Run_in_Background" />
+
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/Activate_WiFi_Stream"
+            android:layout_alignLeft="@+id/Activate_WiFi_Stream"
+            android:layout_alignRight="@+id/spinner1"
+            android:layout_alignTop="@+id/RadioGroup" >
+
+
+            <ProgressBar
+                android:id="@+id/ProgressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center_horizontal|center"
+                android:indeterminateBehavior="repeat"
+                android:visibility="gone" />
+
+
+
+            <TextView
+                android:id="@+id/Sending_State"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center_horizontal"
+                android:text="@string/Not_Sending"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        </FrameLayout>
+
+    </RelativeLayout>
+
+</ScrollView>

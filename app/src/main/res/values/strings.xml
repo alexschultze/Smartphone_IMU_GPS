@@ -1,0 +1,62 @@
+<resources>
+			
+    <string name="app_name">IMU+GPS-Stream </string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_simulator_test">Simulator Test</string>
+    <string name="Accelerometer">Accelerometer</string>
+    <string name="Gyroscope">Gyroscope</string>
+    <string name="Magnetic_Field">Magnetic Field</string>
+    <string name="Zero_Value">000</string>
+    <string name="preference_quote">Dies ist der Einstellungs Tab</string>
+    <string name="set_sensors_quote">Dies ist der Set_Sensors Tab</string>
+    <string name="Sensors">Sensors</string>
+    <string name="Values">Values</string>
+    <string name="Unit">Unit</string>
+    <string name="X">X</string>
+    <string name="Y">Y</string>
+    <string name="Z">Z</string>
+    <string name="Linear_Acceleration">Linear Accel.</string>
+    <string name="Orientation">Orientation</string>
+    <string name="Gravity">Gravity</string>
+    <string name="Rotation_Vector">Rotation Vect.</string>
+    <string name="Pressure">Pressure</string>
+    <string name="Edit_Target_Adress">Edit Target IP Adress</string>
+    <string name="Edit_Port">Edit Target Port</string>
+    <string name="Edit_Network">Edit Network Settings</string>
+    <string name="Default_IP_Adress">192.168.0.1</string>
+    <string name="Default_Port">5555</string>
+    <string name="Edit_Frequency">Edit Sensor Update Frequency</string>
+    <string name="SDCard_Text">Write Stream To SD Card</string>
+    <string name="Wireless_Stream_Text">Switch Stream</string>
+    <string name="Run_in_Background">Run in Background</string>
+    <string name="Button_SensorUpdate">Include User-Checked Sensor Data in Stream</string>
+    <string name="error_invalidaddr">Invalid IP address</string>
+    <string name="error_neterror">Unknown UDP network problem</string>
+    <string name="error_sensorerror">Unknown IMU sensor problem</string>
+    <string name="error_warningwifi">Warning: Not connected to a WIFI network.</string>
+    <string name="error_sd_card">Unknown SD-Card problem. Check if a SD-Card with at least 10 MB of free space is available.</string>
+    <string name="label_copyright">© A. Lorenz</string>
+    <string-array name="spinner_array">
+        <item >Fastest</item>
+        <item >Fast</item>
+        <item >Medium</item>
+        <item >Slow</item>
+    </string-array>
+    <string name="AlDialog_SensorUpdate">Note that a current Stream will not be updated with the checked Sensor Data.\nIn order to update the Stream with the checked Sensors you have to restart it in the Preferences Tab.</string>
+    <string name="Title_AlertDialog_Sensor_Update">Include Checked Sensor Data in UDP/SD-Card Stream</string>
+    <string name="UDP_Stream">UDP Stream</string>
+    <string name="SD_Stream">SD-Card Stream</string>
+    <string name="UDP_SD_Stream">UDP &amp; SD-Card Stream</string>
+    <string name="Not_Sending">No Stream established</string>
+    <string name="Stream_Established">Stream established. Sending.</string>
+    <string name="Text_SD_Card_Dialog">Set Name for SD-Card Log-File</string>
+    <string name="MyStream">mystream</string>
+    <string name="OK">OK</string>
+    <string name="GPS_Position">GPS Position</string>
+    <string name="error_gps_disabled">Warning: GPS Disabled. GPS Listener stops. A current Stream will lack GPS Data.</string>
+    <string name="error_gps_outofservice">Warning: GPS Out Of Service. GPS Listener stops. A current Stream will lack GPS Data.</string>
+    <string name="Pending">Pending</string>
+    <string name="Bat_Temp">Battery Temp.</string>
+    
+    </resources>
