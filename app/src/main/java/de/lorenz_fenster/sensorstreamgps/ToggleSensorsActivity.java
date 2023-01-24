@@ -2,6 +2,7 @@ package de.lorenz_fenster.sensorstreamgps;
 
 
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -20,6 +21,8 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.BatteryManager;
 import android.os.Bundle;
+import android.os.PowerManager;
+import android.os.PowerManager.WakeLock;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.TextView;
@@ -36,10 +39,7 @@ public class ToggleSensorsActivity extends Activity implements LocationListener
 	private final int mScreenDelay = SensorManager.SENSOR_DELAY_NORMAL;
 	private static boolean mActive = false;
 	
-	
-	
-	
-	
+
 	private static double[] mBLH			= 	new double[3];
 	private static double[] mXYZ			= 	new double[3];
 	private static double[] mV_e			= 	new double[3];
@@ -55,6 +55,9 @@ public class ToggleSensorsActivity extends Activity implements LocationListener
 	private double mLatitude = 0.0;
 	private double mLongitude = 0.0;
 	private double mAltitude = 0.0;
+	
+	private PowerManager mgr2;
+	private WakeLock wakeLock2;
 	
 	private  static int mBattery_Temperature = 0;
 	
@@ -172,6 +175,7 @@ public class ToggleSensorsActivity extends Activity implements LocationListener
 
 	
 	
+	@SuppressLint("Wakelock")
 	public class MyCheckBoxChangeClicker implements CheckBox.OnCheckedChangeListener
 	 {
 		
@@ -199,6 +203,13 @@ public class ToggleSensorsActivity extends Activity implements LocationListener
 						mGPS[i].setVisibility(View.VISIBLE);
 					}
 					SensorStreamActivity.setmGPS(true);
+					
+					if(wakeLock2.isHeld() == false)
+					{
+						wakeLock2.acquire();
+					}
+					
+					
 				}
 				else if(buttonView==mCheckBox_Ori)
 				{
@@ -260,6 +271,11 @@ public class ToggleSensorsActivity extends Activity implements LocationListener
 					{
 						mGPS[i].setVisibility(View.INVISIBLE);
 					}
+					if(wakeLock2.isHeld() == true)
+					{
+						wakeLock2.release();
+					}
+					
 				}
 				else if(buttonView==mCheckBox_Ori)
 				{
@@ -318,6 +334,7 @@ public class ToggleSensorsActivity extends Activity implements LocationListener
 		}
 
 	 }
+	/*
 	public class MyCheckBox_Sensorupdate_Listener implements CheckBox.OnCheckedChangeListener
 	{
 
@@ -338,6 +355,7 @@ public class ToggleSensorsActivity extends Activity implements LocationListener
 		}
 		
 	}
+	*/
 	
 	MyHardwareSensorList myhardwaresensorlist = new MyHardwareSensorList();
 	MySoftwareSensorList mysoftwarewaresensorlist = new MySoftwareSensorList();
@@ -369,7 +387,7 @@ public class ToggleSensorsActivity extends Activity implements LocationListener
 	private CheckBox mCheckBox_Rot_Vec;
 	private CheckBox mCheckBox_Pre;
 	private CheckBox mCheckBox_Bat_Temp;
-	private CheckBox mCheckBox_Incl_Ch_Sensor;
+	//private CheckBox mCheckBox_Incl_Ch_Sensor;
 
 	
 	
@@ -431,7 +449,7 @@ public class ToggleSensorsActivity extends Activity implements LocationListener
 		mCheckBox_Rot_Vec 		= (CheckBox) findViewById(R.id.CheckBox_Rot_Vec);
 		mCheckBox_Pre 			= (CheckBox) findViewById(R.id.CheckBox_Pre);
 		mCheckBox_Bat_Temp		= (CheckBox) findViewById(R.id.CheckBox_Bat_Temp);
-		mCheckBox_Incl_Ch_Sensor= (CheckBox) findViewById(R.id.CheckBox_Include_Checked_Sensor);
+		//mCheckBox_Incl_Ch_Sensor= (CheckBox) findViewById(R.id.CheckBox_Include_Checked_Sensor);
 		
 		mCheckBox_GPS.setOnCheckedChangeListener(new MyCheckBoxChangeClicker());
 		mCheckBox_Ori.setOnCheckedChangeListener(new MyCheckBoxChangeClicker());
@@ -441,7 +459,10 @@ public class ToggleSensorsActivity extends Activity implements LocationListener
 		mCheckBox_Pre.setOnCheckedChangeListener(new MyCheckBoxChangeClicker());
 		mCheckBox_Bat_Temp.setOnCheckedChangeListener(new MyCheckBoxChangeClicker());
 		
-		mCheckBox_Incl_Ch_Sensor.setOnCheckedChangeListener(new MyCheckBox_Sensorupdate_Listener());
+		this.mgr2 = (PowerManager)this.getSystemService(Context.POWER_SERVICE);
+        this.wakeLock2 = mgr2.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "MyWakeLock2");
+		
+		//mCheckBox_Incl_Ch_Sensor.setOnCheckedChangeListener(new MyCheckBox_Sensorupdate_Listener());
 		
 	
 	}
@@ -458,18 +479,31 @@ public class ToggleSensorsActivity extends Activity implements LocationListener
 		 mCheckBox_Grav.setEnabled(status);
 		 mCheckBox_Rot_Vec.setEnabled(status);
 		 mCheckBox_Pre.setEnabled(status);
-		 mCheckBox_Incl_Ch_Sensor.setEnabled(status);
+		 mCheckBox_Bat_Temp.setEnabled(status);
+		 //mCheckBox_Incl_Ch_Sensor.setEnabled(status);
 	    	
 	 }
 	
+	@SuppressLint("Wakelock")
 	@Override
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
 		super.onDestroy();
 		if(SensorStreamActivity.ismGPS() == true)
 		{
-			mCheckBox_GPS.setChecked(false);
-			mCheckBox_Bat_Temp.setChecked(false);
+			SensorStreamActivity.mLocationmanager.removeUpdates(ToggleSensorsActivity.this);
+			//mCheckBox_GPS.setChecked(false);
+			//mCheckBox_Bat_Temp.setChecked(false);
+		}
+		
+		if(SensorStreamActivity.isMbBat_Temp() == true)
+		{
+			ToggleSensorsActivity.this.unregisterReceiver(mBatInfoReceiver);
+		}
+		
+		if(wakeLock2.isHeld())
+		{
+			wakeLock2.release();
 		}
 		
 		//Log.d(MDEBUG_TAG, getLocalClassName()+ " .onDestroy aufgerufen");
@@ -483,8 +517,9 @@ public class ToggleSensorsActivity extends Activity implements LocationListener
 		
 		if(PreferencesActivity.ismStream_Active())
 		{
-			if(!SensorStreamActivity.isMbChecked_Sensor_Data())
-			{
+			/*
+			//if(!SensorStreamActivity.isMbChecked_Sensor_Data())
+			//{
 				if(mCheckBox_GPS.isChecked())
 					for(int i=0; i<mGPS.length;i++)
 					{
@@ -518,7 +553,9 @@ public class ToggleSensorsActivity extends Activity implements LocationListener
 				if(mCheckBox_Pre.isChecked())
 						mPre.setVisibility(View.VISIBLE);
 					
-			}
+			//}
+			 * 
+			 */
 		}
 		
 		else
@@ -547,8 +584,14 @@ public class ToggleSensorsActivity extends Activity implements LocationListener
 	
 	@Override
 	protected void onRestart() {
+		
 		// TODO Auto-generated method stub
-		super.onDestroy();
+		super.onRestart();
+		
+		if (SensorStreamActivity.ismGPS() == true && !wakeLock2.isHeld())
+		{
+				wakeLock2.acquire();
+		}
 		//Log.d(MDEBUG_TAG, getLocalClassName()+ " .onRestart aufgerufen");
 	}
 	
@@ -560,8 +603,9 @@ public class ToggleSensorsActivity extends Activity implements LocationListener
 		if (PreferencesActivity.ismStream_Active())
 		{
 			switch_CheckBoxes_Status(false);
-			if(!SensorStreamActivity.isMbChecked_Sensor_Data())
-			{
+			/*
+			//if(!SensorStreamActivity.isMbChecked_Sensor_Data())
+			//{
 				if(mCheckBox_GPS.isChecked())
 					for(int i=0; i<mGPS.length;i++)
 					{
@@ -595,7 +639,8 @@ public class ToggleSensorsActivity extends Activity implements LocationListener
 				if(mCheckBox_Pre.isChecked())
 						mPre.setVisibility(View.INVISIBLE);
 					
-			}
+			//}
+			 */
 		}
 	
 		else
@@ -671,6 +716,28 @@ public class ToggleSensorsActivity extends Activity implements LocationListener
 	protected void onStart() {
 		// TODO Auto-generated method stub
 		super.onStart();
+		
+		if (SensorStreamActivity.ismGPS() && !mCheckBox_GPS.isChecked())
+			mCheckBox_GPS.setChecked(true);
+			
+		if (SensorStreamActivity.isMbOrientation() && !mCheckBox_Ori.isChecked())
+			mCheckBox_Ori.setChecked(true);
+		
+		if (SensorStreamActivity.isMbLin_Acceleration() && !mCheckBox_Lin_Acc.isChecked())
+			mCheckBox_Lin_Acc.setChecked(true);
+		
+		if (SensorStreamActivity.isMbGravity() && !mCheckBox_Grav.isChecked())
+			mCheckBox_Grav.setChecked(true);
+		
+		if (SensorStreamActivity.isMbRot_Vector() && !mCheckBox_Rot_Vec.isChecked())
+			mCheckBox_Rot_Vec.setChecked(true);
+		
+		if (SensorStreamActivity.isMbPressure() && !mCheckBox_Pre.isChecked())
+			mCheckBox_Pre.setChecked(true);
+		
+		if (SensorStreamActivity.isMbBat_Temp() && !mCheckBox_Bat_Temp.isChecked())
+			mCheckBox_Bat_Temp.setChecked(true);
+		
 		//Log.d(MDEBUG_TAG, getLocalClassName()+ " .onStart aufgerufen");
 	}
 
@@ -681,8 +748,8 @@ public class ToggleSensorsActivity extends Activity implements LocationListener
 		super.onStop();
 		if (SensorStreamActivity.ismGPS() == true && SensorStreamActivity.ismRun_in_Background()== false)
 		{
-			mCheckBox_GPS.setChecked(false);
-			mCheckBox_Bat_Temp.setChecked(false);
+			if(wakeLock2.isHeld())
+				wakeLock2.release();
 		}
 			
 		
@@ -731,7 +798,7 @@ public class ToggleSensorsActivity extends Activity implements LocationListener
 	@Override
 	public void onLocationChanged(Location location) {
 		
-		if(PreferencesActivity.ismStream_Active() == true && SensorStreamActivity.isMbChecked_Sensor_Data() == true)
+		if(PreferencesActivity.ismStream_Active() == true /*&& SensorStreamActivity.isMbChecked_Sensor_Data() == true*/)
 		{
 			setmGps_available(false);
 			

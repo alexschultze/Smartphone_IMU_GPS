@@ -28,6 +28,7 @@ public class SensorStreamActivity extends TabActivity
 		private static String mName_SD_Card_File = "mystream";
 		
 		
+		
 
 		
 		private static final boolean mbAccelerometer = true;
@@ -42,7 +43,7 @@ public class SensorStreamActivity extends TabActivity
 		private static boolean mbPressure = false;
 		private static boolean mbBat_Temp = false;
 		
-		private static boolean mbChecked_Sensor_Data=false;
+		//private static boolean mbChecked_Sensor_Data=false;
 		
 		private static boolean mRun_in_Background = false;
 		
@@ -222,6 +223,7 @@ public class SensorStreamActivity extends TabActivity
 			SensorStreamActivity.mDelay = mDelay;
 		}
 
+		/*
 		public static boolean isMbChecked_Sensor_Data() {
 			return mbChecked_Sensor_Data;
 		}
@@ -230,7 +232,7 @@ public class SensorStreamActivity extends TabActivity
 			SensorStreamActivity.mbChecked_Sensor_Data = mbChecked_Sensor_Data;
 		}
  
-		 
+		 */
 
 		public static void setmIssending(boolean mIssending) {
 			SensorStreamActivity.mIssending = mIssending;

@@ -1,4 +1,4 @@
-package de.lorenz_fenster.sensorstreamgps;
+ package de.lorenz_fenster.sensorstreamgps;
 
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
@@ -8,18 +8,25 @@ import java.net.UnknownHostException;
 import java.util.Calendar;
 import java.util.Locale;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
+import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.DialogInterface;
-import android.net.ConnectivityManager;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
+import android.os.PowerManager;
+import android.os.PowerManager.WakeLock;
 import android.os.StrictMode;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,8 +43,6 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.ToggleButton;
-import android.app.AlertDialog.Builder;
-import de.lorenz_fenster.sensorstreamgps.R;
 
 public class PreferencesActivity extends Activity implements  OnItemSelectedListener{
 	
@@ -69,8 +74,13 @@ public class PreferencesActivity extends Activity implements  OnItemSelectedList
     private static final int CSV_ID_LIN_ACC			= 82;
     private static final int CSV_ID_GRA				= 83;
     private static final int CSV_ID_ROT_VEC			= 84;
-    private static final int CSV_ID_PRE				= 85;
-    private static final int CSV_ID_BAT_TEMP		= 86;
+    private static final int CSV_ID_ORI_MATRIX		= 85;
+    private static final int CSV_ID_QUATERNIONS		= 86;
+    private static final int CSV_ID_PRE				= 87;
+    private static final int CSV_ID_BAT_TEMP		= 88;
+    
+  
+    
     
     StringBuilder mStrBuilder = new StringBuilder(256);
     private String mSensordata;
@@ -129,6 +139,11 @@ public class PreferencesActivity extends Activity implements  OnItemSelectedList
 	private ProgressBar mProgessBar;
 	private TextView mSendingState;
 	
+	private PowerManager mgr;
+	private WakeLock wakeLock;
+	
+
+	
 	
 
 	public class My_Hardware_SensorListener implements  SensorEventListener
@@ -145,8 +160,8 @@ public class PreferencesActivity extends Activity implements  OnItemSelectedList
 		{
 			
 			
-			//temp1 = SystemClock.uptimeMillis();	
-			double timestamp_millis_abs = System.currentTimeMillis();
+			//temp1 = SystemClock.uptimeMillis();		
+			
 			double timestamp_sec = event.timestamp * NS2S;
 			//double x = event.values[0];
 	        //double y = event.values[1];
@@ -209,8 +224,8 @@ public class PreferencesActivity extends Activity implements  OnItemSelectedList
 		            		ToggleSensorsActivity.mMag[i].setText(String.format("%6.3f", mMagBuffer[i]));
 			            }
 		               
-		            	if (SensorStreamActivity.isMbChecked_Sensor_Data())
-		            	{
+		            	//if (SensorStreamActivity.isMbChecked_Sensor_Data())
+		            	//{
 		            		
 		            		if(SensorStreamActivity.isMbOrientation())
 		    				{
@@ -236,7 +251,7 @@ public class PreferencesActivity extends Activity implements  OnItemSelectedList
 		    		            }
 		    				}
 		    				
-		    				if(SensorStreamActivity.isMbLin_Acceleration())
+		    				if(SensorStreamActivity.isMbRot_Vector())
 		    				{
 		    					for(int i=0; i<3;i++)
 		    		            {
@@ -249,7 +264,7 @@ public class PreferencesActivity extends Activity implements  OnItemSelectedList
 		            			ToggleSensorsActivity.mPre.setText(String.format("%6.3f", mPreBuffer));
 					            
 		            		}
-		            	}
+		            	//}
 		                
 		            
 		            
@@ -283,8 +298,8 @@ public class PreferencesActivity extends Activity implements  OnItemSelectedList
 		        
 		        
 		        
-		        if(SensorStreamActivity.isMbChecked_Sensor_Data())
-		        {
+		        //if(SensorStreamActivity.isMbChecked_Sensor_Data())
+		        //{
 		        	
 		        	if(SensorStreamActivity.ismGPS())
 		        	{
@@ -296,7 +311,7 @@ public class PreferencesActivity extends Activity implements  OnItemSelectedList
 		        			mStrBuilder.append(String.format(Locale.ENGLISH, ", %d, %12.3f,%12.3f,%12.3f", CSV_ID_XYZ_WGS84, ToggleSensorsActivity.getmXYZ()[0],ToggleSensorsActivity.getmXYZ()[1],ToggleSensorsActivity.getmXYZ()[2]));
 		        			mStrBuilder.append(String.format(Locale.ENGLISH, ", %d, %6.3f,%6.3f,%6.3f", CSV_ID_VELOCITY_WGS84, ToggleSensorsActivity.getmV_e()[0],ToggleSensorsActivity.getmV_e()[1],ToggleSensorsActivity.getmV_e()[2]));
 		        			mStrBuilder.append(String.format(Locale.ENGLISH, ", %d, %d", CSV_ID_GPS_UTC_TIME, ToggleSensorsActivity.getmGPS_UCT_Time()));
-		        			ToggleSensorsActivity.setmGps_available(false);
+		        			
 		        			
 		        			
 		        			/*
@@ -371,7 +386,22 @@ public class PreferencesActivity extends Activity implements  OnItemSelectedList
 		        		
 		        		if (rotvecReady == true) {
 				             addSensorToString(mStrBuilder, CSV_ID_ROT_VEC, mRot_Vec_Buffer);
-				            mRot_Vec_BufferReady = false;
+				             
+				             float ori_matrix [] = new float [9];
+				             float quaternions [] = new float [4];
+				             float[] rotationVector_f = new float [3];
+				             
+				             for(int i = 0; i<3; i++)
+				             {
+				            	 rotationVector_f[i] =  (float) mRot_Vec_Buffer[i];    	 
+				             }
+				             	             
+				             SensorManager.getRotationMatrixFromVector(ori_matrix, rotationVector_f);
+				             SensorManager.getQuaternionFromVector(quaternions, rotationVector_f);
+				             add_ori_quat_ToString(mStrBuilder, CSV_ID_ORI_MATRIX, CSV_ID_QUATERNIONS, ori_matrix, quaternions);
+
+  
+				             mRot_Vec_BufferReady = false;
 				        }
 		        	}
 		        	
@@ -383,14 +413,14 @@ public class PreferencesActivity extends Activity implements  OnItemSelectedList
 		        		
 		        		if (preReady == true) {
 				             addSensorToString(mStrBuilder, CSV_ID_PRE, mPreBuffer);
-				            mPreBufferReady = false;
+				            
 				        }
 		        	}
 		        	if(SensorStreamActivity.isMbBat_Temp())
 		        	{
 		        		mStrBuilder.append(String.format(Locale.ENGLISH, ", %d, %d", CSV_ID_BAT_TEMP, ToggleSensorsActivity.getmBattery_Temperature()));
 		        	}
-		        }
+		        //}
 		  	
 		        
 		        mStrBuilder.insert(0,String.format(Locale.ENGLISH, "%.5f", timestamp_sec));
@@ -403,6 +433,23 @@ public class PreferencesActivity extends Activity implements  OnItemSelectedList
 		        	if (SD_Card_Setup.getmBufferedwriter() != null)
 		        	{
 		        		SD_Card_Setup.write(mSensordata);
+		        		SD_Card_Setup.write_IMU(timestamp_sec, mAccBuffer, mGyroBuffer, gyroReady);
+		        		SD_Card_Setup.write_MAG(timestamp_sec, mMagBuffer, magReady);
+		        		
+		        		//if(SensorStreamActivity.isMbChecked_Sensor_Data())
+				        //{
+		        			if(SensorStreamActivity.ismGPS())
+				        	{		        				
+		        				SD_Card_Setup.write_GNSS(timestamp_sec, ToggleSensorsActivity.ismGps_available());
+		        				ToggleSensorsActivity.setmGps_available(false);
+				        	}
+		        			
+		        			if(SensorStreamActivity.isMbPressure())
+		        			{	
+		        				SD_Card_Setup.write_BARO(timestamp_sec, mPreBuffer, ( (Math.abs(mPreTime - mAccTime) < mMaxSecDiff) && (mPreBufferReady == true) ) , SensorStreamActivity.isMbBat_Temp());
+		        				mPreBufferReady = false;
+		        			}
+				        //}	
 		        	}
 		        	
 		        }
@@ -415,17 +462,26 @@ public class PreferencesActivity extends Activity implements  OnItemSelectedList
 		        	if (SD_Card_Setup.getmBufferedwriter() != null)
 		        	{
 		        		SD_Card_Setup.write(mSensordata);
+		        		SD_Card_Setup.write_IMU(timestamp_sec, mAccBuffer, mGyroBuffer, gyroReady);
+		        		SD_Card_Setup.write_MAG(timestamp_sec, mMagBuffer, magReady);
+		        	
+		        		//if(SensorStreamActivity.isMbChecked_Sensor_Data())
+				        //{
+		        			if(SensorStreamActivity.ismGPS())
+				        	{		        				
+		        				SD_Card_Setup.write_GNSS(timestamp_sec, ToggleSensorsActivity.ismGps_available());
+		        				ToggleSensorsActivity.setmGps_available(false);
+				        	}
+		        			
+		        			if(SensorStreamActivity.isMbPressure())
+		        			{	
+		        				SD_Card_Setup.write_BARO(timestamp_sec, mPreBuffer, ( (Math.abs(mPreTime - mAccTime) < mMaxSecDiff) && (mPreBufferReady == true) ) , SensorStreamActivity.isMbBat_Temp());
+		        				mPreBufferReady = false;
+		        			}
+				        //}
 		        	}
 		        }
-	         
 		        
-		        //temp2 = SystemClock.uptimeMillis();
-		        //long result = temp2 - temp1;
-		       
-		       
-		        //System.out.println(result);
-		      
-			
 		}
 		
 	}
@@ -546,6 +602,11 @@ public class PreferencesActivity extends Activity implements  OnItemSelectedList
         
         
         
+        this.mgr = (PowerManager)this.getSystemService(Context.POWER_SERVICE);
+        this.wakeLock = mgr.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "MyWakeLock");
+        
+        
+        
         mIP_Adress 					= (EditText) 		findViewById(R.id.Edit_Address_Box);
         mPort						= (EditText) 		findViewById(R.id.Edit_Port_Box);
         mToggleButton_Stream		= (ToggleButton) 	findViewById(R.id.ToggleButton_Stream);        
@@ -589,14 +650,131 @@ public class PreferencesActivity extends Activity implements  OnItemSelectedList
         
         
        
-        
+        loadSavedPreferences();
              
         
 	}
 	
 
     
-    /* (non-Javadoc)
+    private void loadSavedPreferences() {
+		// TODO Auto-generated method stub
+		SharedPreferences sharedpreferences = PreferenceManager.getDefaultSharedPreferences(this);
+		mIP_Adress.setText(sharedpreferences.getString("ip_adress", "192.168.0.1"));
+		mPort.setText(sharedpreferences.getString("port", "5555"));
+		
+		int radio_selection = sharedpreferences.getInt("radiogroup", 0);
+		
+		switch(radio_selection)
+		{
+		case R.id.UDP_SD_Stream: 
+			mRadioGroup.check(R.id.UDP_SD_Stream);
+			break;
+		
+		case R.id.UDP_Stream: 
+			mRadioGroup.check(R.id.UDP_Stream);
+			break;
+		
+		case  R.id.SD_Stream: 
+			mRadioGroup.check(R.id.SD_Stream);
+			break;
+			
+		default:
+			mRadioGroup.check(R.id.UDP_SD_Stream);
+			break;
+		}
+		
+		int spinner_selection = sharedpreferences.getInt("spinner", 2);
+		mSpinner.setSelection(spinner_selection);
+		
+		boolean check_box_background = sharedpreferences.getBoolean("run_background", false);
+		mCheckBox_Background.setChecked(check_box_background);
+		
+		boolean gps_set = sharedpreferences.getBoolean("gps", false);
+		SensorStreamActivity.setmGPS(gps_set);
+		
+		
+		boolean ori_set = sharedpreferences.getBoolean("ori", false);
+		SensorStreamActivity.setMbOrientation(ori_set);
+		
+		
+		boolean lin_set = sharedpreferences.getBoolean("lin", false);
+		SensorStreamActivity.setMbLin_Acceleration(lin_set);
+		
+		boolean gra_set = sharedpreferences.getBoolean("gra", false);
+		SensorStreamActivity.setMbGravity(gra_set);
+		
+		boolean rot_set = sharedpreferences.getBoolean("rot", false);
+		SensorStreamActivity.setMbRot_Vector(rot_set);
+		
+		boolean pre_set = sharedpreferences.getBoolean("pre", false);
+		SensorStreamActivity.setMbPressure(pre_set);
+		
+		boolean bat_set = sharedpreferences.getBoolean("bat", false);
+		SensorStreamActivity.setMbBat_Temp(bat_set);
+
+		
+    }
+    
+    	private void savePreferences(String ip_adress, String port) {
+    		SharedPreferences sharedpreferences = PreferenceManager.getDefaultSharedPreferences(this);
+    		Editor editor = sharedpreferences.edit(); //edit the SharedPreferences 'sharedPreferences'  
+    		
+    		if(ip_adress != null)
+    		{
+    		editor.putString("ip_adress", ip_adress); //put the string and lable it as "string1"  
+    		editor.commit(); //commit it  
+    		}
+    		
+    		if(port != null)
+    		{
+    		editor.putString("port", port); //put the string and lable it as "string1"  
+    		editor.commit(); //commit it 
+    		}
+ 		
+    		editor.putInt("radiogroup", mRadioGroup.getCheckedRadioButtonId());
+    		editor.commit();
+    		
+    		editor.putInt("spinner", mSpinner.getSelectedItemPosition());
+    		editor.commit();
+    		
+    		editor.putBoolean("run_background", mCheckBox_Background.isChecked());
+    		editor.commit();
+    		
+    		
+    		boolean is_gps = SensorStreamActivity.ismGPS();
+    		editor.putBoolean("gps", is_gps);
+    		editor.commit();
+    		
+    		boolean is_ori = SensorStreamActivity.isMbOrientation();
+    		editor.putBoolean("ori", is_ori);
+    		editor.commit();
+    		
+    		boolean is_lin = SensorStreamActivity.isMbLin_Acceleration();
+    		editor.putBoolean("lin", is_lin);
+    		editor.commit();
+    		
+    		
+    		boolean is_gra = SensorStreamActivity.isMbGravity();
+    		editor.putBoolean("gra", is_gra);
+    		editor.commit();
+    		
+    		boolean is_rot = SensorStreamActivity.isMbRot_Vector();
+    		editor.putBoolean("rot", is_rot);
+    		
+    		boolean is_pre = SensorStreamActivity.isMbPressure();
+    		editor.putBoolean("pre", is_pre);
+    		editor.commit();
+    		
+    		boolean is_bat = SensorStreamActivity.isMbBat_Temp();
+    		editor.putBoolean("bat", is_bat);
+    		editor.commit();
+    		
+    }
+
+
+
+	/* (non-Javadoc)
 	 * @see android.app.Activity#onStart()
 	 */
 	@Override
@@ -661,6 +839,7 @@ public class PreferencesActivity extends Activity implements  OnItemSelectedList
 	/* (non-Javadoc)
 	 * @see android.app.Activity#onDestroy()
 	 */
+	@SuppressLint("Wakelock")
 	@Override
 	protected void onDestroy() 
 	{
@@ -668,6 +847,13 @@ public class PreferencesActivity extends Activity implements  OnItemSelectedList
 		if (mStream_Active == true) {
             stopStreaming();
         }
+		
+		savePreferences(mIP_Adress.getText().toString(), mPort.getText().toString());
+		if(this.wakeLock.isHeld() == true)
+		{
+			this.wakeLock.release();
+		}
+		
 		//Log.d(MDEBUG_TAG, getLocalClassName()+ " .onDestroy aufgerufen");
 	}
 
@@ -702,8 +888,8 @@ public class PreferencesActivity extends Activity implements  OnItemSelectedList
             return false;
         	}
         	
-        if(SensorStreamActivity.isMbChecked_Sensor_Data())
-        {
+        //if(SensorStreamActivity.isMbChecked_Sensor_Data())
+        //{
         	if(SensorStreamActivity.isMbPressure() )
             {
             try {
@@ -716,15 +902,15 @@ public class PreferencesActivity extends Activity implements  OnItemSelectedList
             		}
             }
        
-        }
+        //}
     
 		return true;
 	}
 	
 	public boolean start_Software_Sensors()
 	{
-		if (SensorStreamActivity.isMbChecked_Sensor_Data())
-		{
+		//if (SensorStreamActivity.isMbChecked_Sensor_Data())
+		//{
 		if (SensorStreamActivity.isMbOrientation())
 		try {
 			SensorStreamActivity.mSensor_Stream.registerListener(mysoftwarewaresensorlistener, SensorStreamActivity.mSensor_Stream.getDefaultSensor(Sensor.TYPE_ORIENTATION), SensorStreamActivity.getmDelay());
@@ -756,7 +942,7 @@ public class PreferencesActivity extends Activity implements  OnItemSelectedList
 			e.printStackTrace();
 			return false;
 		}
-		}
+		//}
 		else
 			return true;
 		
@@ -793,12 +979,14 @@ public class PreferencesActivity extends Activity implements  OnItemSelectedList
 
 	private boolean start_UDP_Stream()
 	{
+		
 		boolean isOnWifi = isOnWifi();
     	if(isOnWifi == false)
     	{
     		showDialog(R.string.error_warningwifi);
     		return false;
     	}
+    	
     	
     	
 		InetAddress client_adress = null;
@@ -842,6 +1030,7 @@ public class PreferencesActivity extends Activity implements  OnItemSelectedList
 	    	
 	    }
 	
+	@SuppressLint("Wakelock")
 	private boolean startStreaming()
 	{
 		 if(mUDP_SD_Stream.isChecked())
@@ -908,8 +1097,8 @@ public class PreferencesActivity extends Activity implements  OnItemSelectedList
 			return false;
 			}
 		
-		if(SensorStreamActivity.isMbChecked_Sensor_Data())
-		{
+		//if(SensorStreamActivity.isMbChecked_Sensor_Data())
+		//{
 			if(SensorStreamActivity.isMbOrientation() || SensorStreamActivity.isMbLin_Acceleration() || SensorStreamActivity.isMbGravity() || SensorStreamActivity.isMbRot_Vector())
 			{
 				sensor_ready = start_Software_Sensors();
@@ -920,7 +1109,7 @@ public class PreferencesActivity extends Activity implements  OnItemSelectedList
 				return false;
 			}
 			}
-		}
+		//}
 		
 		mStream_Active=true;
 		mIP_Adress.setEnabled(false);
@@ -935,6 +1124,11 @@ public class PreferencesActivity extends Activity implements  OnItemSelectedList
 		
 		mProgessBar.setVisibility(View.VISIBLE);
 		mSendingState.setText(R.string.Stream_Established);
+		
+		if(this.wakeLock.isHeld() == false)
+		{
+			this.wakeLock.acquire();
+		}
 		
 		
 		return true;		
@@ -961,13 +1155,13 @@ public class PreferencesActivity extends Activity implements  OnItemSelectedList
 		mStream_Active = false;
 		stop_Hardware_Sensors();
 	        
-		if(SensorStreamActivity.isMbChecked_Sensor_Data())
-		{
+		//if(SensorStreamActivity.isMbChecked_Sensor_Data())
+		//{
 			if(SensorStreamActivity.isMbOrientation() || SensorStreamActivity.isMbLin_Acceleration() || SensorStreamActivity.isMbGravity() || SensorStreamActivity.isMbRot_Vector())
 			{
 				stop_Software_Sensors();
 			}
-		}
+		//}
 	    
 		
 		mIP_Adress.setEnabled(true);
@@ -980,9 +1174,10 @@ public class PreferencesActivity extends Activity implements  OnItemSelectedList
 		mRadioGroup.getChildAt(i).setEnabled(true);
 		}
 		
-		
-		
-		
+		if(this.wakeLock.isHeld() == true)
+		{
+			this.wakeLock.release();
+		}
 	    }
 	
 	@Override
@@ -1006,25 +1201,48 @@ public class PreferencesActivity extends Activity implements  OnItemSelectedList
 	}
 	
 	
+	
 	private boolean isOnWifi() {
-    	ConnectivityManager conman = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
-    	return conman.getNetworkInfo(ConnectivityManager.TYPE_WIFI).isConnectedOrConnecting();
+    	
+		WifiManager wifimanager = (WifiManager)this.getSystemService(Context.WIFI_SERVICE);
+		if (wifimanager.isWifiEnabled()){
+			return true;
+		} else {
+			return false;
+		}
+	
     }
 	
-
+	 
 
 	private static void addSensorToString(StringBuilder strbuilder,
             int sensorid, double ...values ) 
 	{
 		if(values.length == 3)
 		{
-			strbuilder.append(String.format(Locale.ENGLISH, ", %d, %7.3f,%7.3f,%7.3f", sensorid, values[0], values[1], values[2]));
+			strbuilder.append(String.format(Locale.ENGLISH, ", %d, %.3f,%.3f,%.3f", sensorid, values[0], values[1], values[2]));
 		}
 		
 		else if (values.length == 1)	
 		{
-			strbuilder.append(String.format(Locale.ENGLISH, ", %d, %7.3f", sensorid, values[0]));
+			strbuilder.append(String.format(Locale.ENGLISH, ", %d, %.3f", sensorid, values[0]));
 		}
+	}
+	
+	private static void add_ori_quat_ToString(StringBuilder strbuilder,
+            int sensorid_ori_matrix, int sensorid_quat, float [] ori_matrix_values, float [] quaternion_values ) 
+	{
+		if(ori_matrix_values.length == 9)
+		{
+			strbuilder.append(String.format(Locale.ENGLISH, ", %d,%.3f,%.3f,%.3f,%.3f,%.3f,%.3f,%.3f,%.3f,%.3f", sensorid_ori_matrix, ori_matrix_values[0], ori_matrix_values[1], ori_matrix_values[2], ori_matrix_values[3], ori_matrix_values[4], ori_matrix_values[5], ori_matrix_values[6], ori_matrix_values[7], ori_matrix_values[8]));
+		}
+		
+		if(quaternion_values.length == 4)
+		{
+			strbuilder.append(String.format(Locale.ENGLISH, ", %d,%.3f,%.3f,%.3f,%.3f", sensorid_quat, quaternion_values[0], quaternion_values[1], quaternion_values[2], quaternion_values[3]));
+		}
+		
+	
 	}
 
 	/*
@@ -1210,7 +1428,6 @@ public class PreferencesActivity extends Activity implements  OnItemSelectedList
 	public static void setmStream_Active(boolean mStream_Active) {
 		PreferencesActivity.mStream_Active = mStream_Active;
 	}
-
 
 
 }

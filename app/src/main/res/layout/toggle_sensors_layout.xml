@@ -3,7 +3,7 @@
     android:layout_width="match_parent" android:layout_height="match_parent">
 
 
-    <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <TableLayout 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:clickable="false"
@@ -579,17 +579,6 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
-
-
-            <CheckBox
-                android:id="@+id/CheckBox_Include_Checked_Sensor"
-                android:layout_width="180dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginRight="5dp"
-                android:text="@string/Button_SensorUpdate"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
 
         </RelativeLayout>
         

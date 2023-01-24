@@ -24,8 +24,6 @@
     <string name="Edit_Target_Adress">Edit Target IP Adress</string>
     <string name="Edit_Port">Edit Target Port</string>
     <string name="Edit_Network">Edit Network Settings</string>
-    <string name="Default_IP_Adress">192.168.0.1</string>
-    <string name="Default_Port">5555</string>
     <string name="Edit_Frequency">Edit Sensor Update Frequency</string>
     <string name="SDCard_Text">Write Stream To SD Card</string>
     <string name="Wireless_Stream_Text">Switch Stream</string>
