@@ -2,6 +2,7 @@ package de.lorenz_fenster.sensorstreamgps;
 
 
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -186,7 +187,10 @@ public class ToggleSensorsActivity extends Activity implements LocationListener
 				if(buttonView==mCheckBox_GPS)
 				{
 					boolean GPS_enabled = SensorStreamActivity.mLocationmanager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-			        
+
+
+
+
 			        if (! GPS_enabled)
 			        {
 			        	Intent intent = new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);

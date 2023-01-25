@@ -69,6 +69,15 @@ public class SensorStreamActivity extends TabActivity {
 		mLocationmanager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
 
+		/* Added since API 32, ask for permission */
+		//if (!canAccessLocation() ) {
+		final String[] PERM= {Manifest.permission.ACCESS_FINE_LOCATION};
+		final int REQ_CODE=1;
+
+		requestPermissions(PERM, REQ_CODE);
+
+		//}
+
 		// Tab Action
 		TabHost mTabHost = getTabHost();
 
